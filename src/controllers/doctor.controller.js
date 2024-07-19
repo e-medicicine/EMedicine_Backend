@@ -1,7 +1,7 @@
 import { DoctorDao } from "../dao/doctor.dao.js";
 import { doctorManager } from "../dao/index.dao.js";
 import asyncHandler from "../middlewares/asyncHandler.js";
-import { doctorService } from "../Services/doctor.Service.js";
+import { doctorService } from "../services/doctor.service.js";
 
 const controllerDoc = {
   registerDoc: async (req, res) => {
