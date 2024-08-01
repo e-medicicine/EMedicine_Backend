@@ -1,10 +1,8 @@
-import { DoctorDao } from "../dao/doctor.dao.js";
 import { doctorManager } from "../dao/index.dao.js";
-import asyncHandler from "../middlewares/asyncHandler.js";
-import { doctorService } from "../services/doctor.service.js";
+import doctorService from "../services/doctor.service.js";
 
-const controllerDoc = {
-  registerDoc: async (req, res) => {
+const doctorController = {
+  async registerDoc(req, res) {
     const {
       photo,
       firstName,
@@ -16,11 +14,11 @@ const controllerDoc = {
       speciality,
       phone,
       country,
-      attentionSchedule,
+      availability,
     } = req.body;
 
     try {
-      await new doctorService().register(
+      const newDoctor = await doctorService.register(
         photo,
         firstName,
         lastName,
@@ -31,57 +29,68 @@ const controllerDoc = {
         speciality,
         phone,
         country,
-        attentionSchedule
+        availability
       );
-      res.status(201).send("Successfully registered doctor");
+      res
+        .status(201)
+        .json({ message: "Doctor Created Successfully", doctor: newDoctor });
     } catch (error) {
-      res.status(500).send("Error registering doctor");
+      res.status(error.statusCode || 500).json({ message: error.message });
     }
   },
 
-  login: asyncHandler(async(req, res) => {
-    const {email, password} = req.body;
-    const loggedDoctor = await new doctorService().login(email, password);
-    if(!loggedDoctor) {
-      return res.status(403).json({msg: "Authentication Error"})
-    }
-    res.status(200).json(loggedDoctor);
-  }),
-
-  confirm: asyncHandler(async(req, res) => {
-    const {token} = req.params;
-    const confirmedDoctor = await new doctorService().confirm(token);
-    if(!confirmedDoctor) {
-      return res.status(401).json({msg: "Token error ", error: error.message});
-    }
-    res.json({msg: "Succesfully confirmed user"});
-  }),
-
-  logOutDoc: async (req, res) => {
-    res.status(200).json({ message: "logout doctor" });
-  },
-
-  editProfileDoc: async (req, res) => {
-    res.status(200).json({ message: "Edit doctor's profile" });
-  },
-
-  getDoc: async (req, res) => {
-    const { id } = req.params;
-    res.status(200).json({ message: "show doctor by id", id });
-  },
-
-  profileDoc: async (req, res) => {
-    res.status(200).json({ message: "doctor's profile" });
-  },
-
-  getAllDoc: async (req, res) => {
+  async logOutDoc(req, res) {
     try {
-      const patients = await doctorManager.findAll();
-      res.status(200).json(patients);
+      res.status(200).json({ message: "Doctor logged out successfully" });
     } catch (error) {
-      res.status(500).json({ message: error.message });
+      res.status(error.statusCode || 500).json({ message: error.message });
     }
   },
+
+  async editProfileDoc(req, res) {
+    const { id } = req.params;
+    try {
+      const updateDoctor = await doctorManager.update(id, req.body);
+      res.status(200).json({ message: "Doctor's profile edited successfully", updateDoctor });
+    } catch (error) {
+      res.status(error.statusCode || 500).json({ message: error.message });
+    }
+  },
+
+  async getDoc(req, res) {
+    const { id } = req.params;
+    try {
+      const doctor = await doctorManager.findById(id);
+      res
+        .status(200)
+        .json({ message: "Doctor retrieved successfully", doctor });
+    } catch (error) {
+      res.status(error.statusCode || 500).json({ message: error.message });
+    }
+  },
+
+  async profileDoc(req, res) {
+    const { id } = req.params;
+    try {
+      const doctor = await doctorManager.findById(id);
+      res
+        .status(200)
+        .json({ message: "Doctor's profile retrieved successfully", doctor });
+    } catch (error) {
+      res.status(error.statusCode || 500).json({ message: error.message });
+    }
+  },
+
+  async getAllDoc(req, res) {
+    try {
+      const doctors = await doctorManager.findAll();
+      res
+        .status(200)
+        .json({ message: "All doctors retrieved successfully", doctors });
+    } catch (error) {
+      res.status(error.statusCode || 500).json({ message: error.message });
+    }
+  }
 };
 
-export default controllerDoc;
+export default doctorController;

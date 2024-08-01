@@ -5,15 +5,11 @@ const router = Router();
 
 router.post("/registerPat", controllerPat.registerPat);
 
-router.post("/logInPat", controllerPat.logInPat);
-
-router.post("/logOutPat", controllerPat.logOutPat);
-
-router.post("/editProfilePat", controllerPat.editProfilePat);
+router.post("/editProfilePat/:id", controllerPat.editProfilePat);
 
 router.get("/getPatId/:id", controllerPat.getPatId);
 
-router.get("/profilePat", controllerPat.profilePat);
+router.get("/profilePat/:id", controllerPat.profilePat);
 
 router.get("/getAllPat", controllerPat.getAllPat);
 

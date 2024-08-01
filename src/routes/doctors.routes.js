@@ -8,17 +8,13 @@ router.post("/registerDoc", controllerDoc.registerDoc);
 
 router.post("/logOutDoc", controllerDoc.logOutDoc);
 
-router.post("/editProfileDoc", controllerDoc.editProfileDoc);
+router.post("/editProfileDoc/:id", controllerDoc.editProfileDoc);
 
 router.get("/getDoc/:id", controllerDoc.getDoc);
 
-router.get("/profileDoc", controllerDoc.profileDoc);
+router.get("/profileDoc/:id", controllerDoc.profileDoc);
 
 router.get("/getAllDoc", controllerDoc.getAllDoc);
-
-router.get("/confirm/:token", controllerDoc.confirm);
-
-router.post("/login", controllerDoc.login);
 
 //Private Endpoints
 router.get("/profile", checkAuth, controllerDoc.profileDoc);
