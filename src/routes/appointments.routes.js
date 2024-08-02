@@ -9,6 +9,6 @@ router.get("/getAllAppo/:id/:state?", controllerAppo.getAppoById);
 
 router.get("/getAppoDoc/:id/:date?", controllerAppo.getAppoDoc);
 
-router.get("/getFreeSlotDoc/:id/:date?", controllerAppo.getFreeSlotDoc);
+router.get("/getFreeSlotDoc/:id/:date", controllerAppo.getFreeSlotDoc);
 
 export default router;
