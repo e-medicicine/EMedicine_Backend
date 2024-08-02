@@ -58,8 +58,9 @@ const appointmentsController = {
   },
 
   getFreeSlotDoc: async(req, res) =>{
-    //const { id, date } = req.params;
-    console.log("Entro a getFreeSlotDoc");
+    console.log("Entro a getFreeSlotDoc 1");
+    const { id, date } = req.params;
+    console.log("Entro a getFreeSlotDoc 2");
     try {
       const slotFree = await AppointmentService.getFreeSlotDoc(id, date);
 
