@@ -29,6 +29,7 @@ class doctorService {
       }
 
       const existingUser = await doctorManager.findOne({ email });
+
       if (existingUser) throw new CustomError("Doctor already exists", 409);
 
       const hashedPassword = await hashPassword(password);
@@ -47,15 +48,22 @@ class doctorService {
         availability,
       });
 
-      return newDoctor;
+      const credentials = await doctorManager.findOne({
+        email: newDoctor.email,
+      });
+
+      return credentials;
     } catch (error) {
       if (error instanceof CustomError) {
         throw error;
       } else {
-        throw new CustomError("Error registering Doctor: " + error.message, 500);
+        throw new CustomError(
+          "Error registering Doctor: " + error.message,
+          500
+        );
       }
     }
   }
 }
 
-export default new doctorService()
+export default new doctorService();
