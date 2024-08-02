@@ -19,7 +19,7 @@ class AppointmentService {
 
       //Se busca que la fecha coincida con el dia de la semana.
       const doctor = await doctorManager.findOne({
-        _id: doctorId,
+        "_id": doctorId,
         "availability.daysOfWeek": weekdayName,
       });
       console.log("Entro a getFreeSlotDoc en Service 4");
