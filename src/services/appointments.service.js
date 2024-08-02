@@ -15,11 +15,12 @@ class AppointmentService {
       console.log("Entro a getFreeSlotDoc en Service 2");
       //la fecha se convierte en dia de la semana ("Monday" "Tuesday" "Wednesday" etc).
       const weekdayName = this.getDayOfWeek(targetDate);
+      console.log("weekdayName --> " + weekdayName);
       console.log("Entro a getFreeSlotDoc en Service 3");
 
       //Se busca que la fecha coincida con el dia de la semana.
       const doctor = await doctorManager.findOne({
-        "_id": doctorId,
+        _id: doctorId,
         "availability.daysOfWeek": weekdayName,
       });
       console.log("Entro a getFreeSlotDoc en Service 4");
