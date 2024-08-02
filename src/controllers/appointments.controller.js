@@ -61,10 +61,13 @@ const appointmentsController = {
     console.log("Entro a getFreeSlotDoc 1");
     const { id, date } = req.params;
     //const { id } = req.params;
+    console.log("id --> " + id);
+    console.log("date --> " + date);
     console.log("Entro a getFreeSlotDoc 2");
     try {
+      console.log("Entro a getFreeSlotDoc 3");
       const slotFree = await AppointmentService.getFreeSlotDoc(id, date);
-
+      console.log("Entro a getFreeSlotDoc 4");
       res.status(200).json({ slotFree: slotFree });
     } catch (error) {
       res.status(error.statusCode || 500).json({ message: error.message });
