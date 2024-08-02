@@ -16,6 +16,9 @@ class AppointmentService {
       //la fecha se convierte en dia de la semana ("Monday" "Tuesday" "Wednesday" etc).
       const weekdayName = this.getDayOfWeek(targetDate);
       console.log("weekdayName --> " + weekdayName);
+      const date = new Date(targetDate);
+      const day = date.getDay();
+      console.log("day --> " + day);
       console.log("Entro a getFreeSlotDoc en Service 3");
 
       //Se busca que la fecha coincida con el dia de la semana.
