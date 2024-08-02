@@ -14,15 +14,13 @@ class AppointmentService {
     try {
       console.log("Entro a getFreeSlotDoc en Service 2");
       //la fecha se convierte en dia de la semana ("Monday" "Tuesday" "Wednesday" etc).
-      const weekdayName = this.getDayOfWeek(targetDate);
+      //const weekdayName = this.getDayOfWeek(targetDate);
 
       const date2 = new Date(targetDate);
-      console.log("Deberia ser martes --> " + date2.toLocaleDateString('es-ES', { weekday: 'long' }));
+      console.log("Deberia ser martes --> " + date2.toLocaleDateString('en-US', { weekday: 'long' }));
+      const weekdayName = date2.toLocaleDateString('en-US', { weekday: 'long' });
 
       console.log("weekdayName --> " + weekdayName);
-      const date = new Date(targetDate);
-      const day = date.getDay();
-      console.log("day --> " + day);
       console.log("Entro a getFreeSlotDoc en Service 3");
 
       //Se busca que la fecha coincida con el dia de la semana.
