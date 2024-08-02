@@ -8,15 +8,21 @@ import CustomError from "../middlewares/error.middleware.js";
 
 class AppointmentService {
   async getFreeSlotDoc(doctorId, targetDate) {
+    console.log("Entro a getFreeSlotDoc en Service 1");
+    console.log("doctorId --> " + doctorId);
+    console.log("targetDate --> " + targetDate);
     try {
+      console.log("Entro a getFreeSlotDoc en Service 2");
       //la fecha se convierte en dia de la semana ("Monday" "Tuesday" "Wednesday" etc).
       const weekdayName = this.getDayOfWeek(targetDate);
+      console.log("Entro a getFreeSlotDoc en Service 3");
 
       //Se busca que la fecha coincida con el dia de la semana.
       const doctor = await doctorManager.findOne({
         _id: doctorId,
         "availability.daysOfWeek": weekdayName,
       });
+      console.log("Entro a getFreeSlotDoc en Service 4");
 
       if (!doctor) {
         throw new CustomError("Doctor is not available on this day", 404);
